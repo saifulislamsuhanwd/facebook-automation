@@ -30,11 +30,11 @@ const server = http.createServer(async (req, res) => {
   try {
     const result = await searchGoogleAndLogTitle();
     res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end(`Hello, this is your Node.js server displaying text in the browser!\n\nConsole Results:\n${result.join('\n')}`);
+    res.end(`Server is running successful: ${result}`);
   } catch (error) {
     console.error(error);
     res.writeHead(500, { 'Content-Type': 'text/plain' });
-    res.end('Internal Server Error');
+    res.end(`Internal Server Error: ${error}`);
   }
 });
 
