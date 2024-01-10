@@ -2,7 +2,7 @@ const http = require('http');
 const puppeteer = require('puppeteer');
 
 async function searchGoogleAndLogTitle() {
-  const browser = await puppeteer.launch({ headless: "new" });
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
   // Set a reasonable User-Agent to mimic a real browser
@@ -22,13 +22,26 @@ async function searchGoogleAndLogTitle() {
   console.log('First search result title:', title);
 
   await browser.close();
+
+  return title;
 }
 
-
-const server = http.createServer((req, res) => {
-  searchGoogleAndLogTitle();
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hello, this is your Node.js server displaying text in the browser!');
+const server = http.createServer(async (req, res) => {
+  try {
+    const result = await searchGoogleAndLogTitle();
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end(`Hello, this is your Node.js server displaying text in the browser!\n\nConsole Results:\n${result.join('\n')}`);
+  } catch (error) {
+    console.error(error);
+    res.writeHead(500, { 'Content-Type': 'text/plain' });
+    res.end('Internal Server Error');
+  }
+});
+  } catch (error) {
+    console.error(error);
+    res.writeHead(500, { 'Content-Type': 'text/plain' });
+    res.end('Internal Server Error');
+  }
 });
 
 const port = 3000;
