@@ -37,12 +37,6 @@ const server = http.createServer(async (req, res) => {
     res.end('Internal Server Error');
   }
 });
-  } catch (error) {
-    console.error(error);
-    res.writeHead(500, { 'Content-Type': 'text/plain' });
-    res.end('Internal Server Error');
-  }
-});
 
 const port = 3000;
 server.listen(port, () => {
