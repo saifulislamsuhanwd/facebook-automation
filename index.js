@@ -2,7 +2,10 @@ const http = require('http');
 const puppeteer = require('puppeteer-core');
 
 async function searchGoogleAndLogTitle() {
-  const browser = await puppeteer.launch({ headless: "new" });
+  const browser = await puppeteer.launch({
+    executablePath: '/path/to/chrome', // Specify the path to your Chrome executable
+    headless: 'new', // or false if you want to run with a GUI
+  });
   const page = await browser.newPage();
 
   // Set a reasonable User-Agent to mimic a real browser
