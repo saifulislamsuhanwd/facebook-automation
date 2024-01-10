@@ -1,5 +1,5 @@
 const http = require('http');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 
 async function searchGoogleAndLogTitle() {
   const browser = await puppeteer.launch({ headless: "new" });
